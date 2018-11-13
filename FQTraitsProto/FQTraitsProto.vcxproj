@@ -146,6 +146,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HeroBase.cpp" />
+    <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ConflictBase.h" />
+    <ClInclude Include="EncounterBase.h" />
+    <ClInclude Include="Globals.h" />
+    <ClInclude Include="HeroBase.h" />
+    <ClInclude Include="TraitBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

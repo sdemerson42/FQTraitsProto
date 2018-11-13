@@ -13,5 +13,39 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Conflicts">
+      <UniqueIdentifier>{7bab3209-11ce-4007-bc8b-86d16bd95a29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Encounters">
+      <UniqueIdentifier>{dc221ad7-9026-4d46-8c8d-12c44b7e9c66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Traits">
+      <UniqueIdentifier>{a8920378-16bf-4d23-a304-68bee4cf3d30}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HeroBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HeroBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConflictBase.h">
+      <Filter>Header Files\Conflicts</Filter>
+    </ClInclude>
+    <ClInclude Include="EncounterBase.h">
+      <Filter>Header Files\Encounters</Filter>
+    </ClInclude>
+    <ClInclude Include="TraitBase.h">
+      <Filter>Header Files\Traits</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
