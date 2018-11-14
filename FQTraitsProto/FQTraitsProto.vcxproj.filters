@@ -30,6 +30,12 @@
     <ClCompile Include="HeroBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SimState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Profession.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -48,6 +54,9 @@
       <Filter>Header Files\Traits</Filter>
     </ClInclude>
     <ClInclude Include="Profession.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SimState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
