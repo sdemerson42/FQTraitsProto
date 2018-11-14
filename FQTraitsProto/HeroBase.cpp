@@ -22,7 +22,7 @@ void Hero::setAttrib(HeroAttrib ha, unsigned int val)
 		m_health = val;
 		break;
 	case HeroAttrib::Level:
-		m_aff = val;
+		m_lev = val;
 		break;
 	case HeroAttrib::Logic:
 		m_logic = val;
@@ -88,7 +88,7 @@ unsigned int Hero::getAttrib(HeroAttrib ha) const
 		return m_health;
 		break;
 	case HeroAttrib::Level:
-		return m_aff;
+		return m_lev;
 		break;
 	case HeroAttrib::Logic:
 		return m_logic;

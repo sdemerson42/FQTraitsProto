@@ -47,5 +47,8 @@
     <ClInclude Include="TraitBase.h">
       <Filter>Header Files\Traits</Filter>
     </ClInclude>
+    <ClInclude Include="Profession.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
