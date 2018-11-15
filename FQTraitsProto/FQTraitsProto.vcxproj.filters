@@ -22,6 +22,9 @@
     <Filter Include="Header Files\Traits">
       <UniqueIdentifier>{a8920378-16bf-4d23-a304-68bee4cf3d30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Loggers">
+      <UniqueIdentifier>{1b86872f-a1db-4952-bfb2-dc5a5f4043b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -58,6 +61,15 @@
     </ClInclude>
     <ClInclude Include="SimState.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ILogger.h">
+      <Filter>Header Files\Loggers</Filter>
+    </ClInclude>
+    <ClInclude Include="DualLogger.h">
+      <Filter>Header Files\Loggers</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleLogger.h">
+      <Filter>Header Files\Loggers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

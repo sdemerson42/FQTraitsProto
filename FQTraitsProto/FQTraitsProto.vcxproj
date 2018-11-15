@@ -153,9 +153,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConflictBase.h" />
+    <ClInclude Include="ConsoleLogger.h" />
+    <ClInclude Include="DualLogger.h" />
     <ClInclude Include="EncounterBase.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="HeroBase.h" />
+    <ClInclude Include="ILogger.h" />
     <ClInclude Include="Profession.h" />
     <ClInclude Include="SimState.h" />
     <ClInclude Include="TraitBase.h" />

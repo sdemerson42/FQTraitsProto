@@ -1,4 +1,5 @@
 #include "HeroBase.h"
+#include "Profession.h"
 
 void Hero::setAttrib(HeroAttrib ha, unsigned int val)
 {
@@ -146,3 +147,45 @@ unsigned int Hero::getReputation(const std::string &name) const
 	auto p = m_reputationMap.find(name);
 	return p->second;
 }
+
+void Hero::setName(const std::string &name)
+{
+	m_name = name;
+}
+
+const std::string &Hero::getName() const
+{
+	return m_name;
+}
+
+void Hero::setGender(char gender)
+{
+	m_gender = gender;
+}
+
+char Hero::getGender() const
+{
+	return m_gender;
+}
+
+void Hero::initialize(const std::string &name, char gender, const Profession &prof)
+{
+	const auto &titles = prof.titles();
+	const auto &attrib = prof.attrib();
+
+	int x = rand() % titles.size();
+	setName(name + " the " + titles[x]);
+	setGender(gender);
+
+	for (const auto &data : attrib)
+	{
+		setAttrib(data.attrib, data.value);
+	}
+
+	m_health = m_pTough;
+	m_morale = 20;
+	m_lev = 1;
+}
+
+//Physical, Magical, Rogue, Divine, Nature, Lore, Logic, Luck, Gear, PhysTough, MentalTough, Alignment, Affability,
+//Health, Morale, Level, Reputation

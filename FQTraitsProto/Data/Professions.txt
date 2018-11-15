@@ -1,13 +1,13 @@
 Warrior
-Thug Goon Obliterator Swordperson Punch-Drunk *
+Thug Goon Obliterator Mangler Legbreaker Ruthless *
 20 0 0 0 5 3 5 10 1 16 6 12 12
 
 Mage
-Magnificent Spellchucker Wizardrous Smartypants *
+Magnificent Spellchucker Wizardrous Smartypants Egghead *
 3 20 0 0 5 15 15 3 1 2 15 12 12
 
 Thief
-Shyster Shifty Klepto Jailbird Sticky-Fingered *
+Shyster Shifty Klepto Jailbird Sticky-Fingered Weasel *
 5 0 20 0 3 5 8 12 1 7 8 12 12
 
 Priest

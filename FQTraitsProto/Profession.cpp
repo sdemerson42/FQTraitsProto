@@ -16,11 +16,60 @@ std::istream &operator >> (std::istream &ist, Profession &prof)
 		prof.m_title.emplace_back(s);
 	}
 
-	for (int i = 0; i < (int)HeroAttrib::Total - 4; ++i)
-	{
-		ist >> s;
-		prof.m_attrib.push_back(std::stoi(s));
-	}
+	Profession::AttribData ad;
+
+	ist >> s;
+	ad.attrib = HeroAttrib::Physical;
+	ad.value = stoi(s);
+	prof.m_attrib.push_back(ad);
+	ist >> s;
+	ad.attrib = HeroAttrib::Magical;
+	ad.value = stoi(s);
+	prof.m_attrib.push_back(ad);
+	ist >> s;
+	ad.attrib = HeroAttrib::Rogue;
+	ad.value = stoi(s);
+	prof.m_attrib.push_back(ad);
+	ist >> s;
+	ad.attrib = HeroAttrib::Divine;
+	ad.value = stoi(s);
+	prof.m_attrib.push_back(ad);
+	ist >> s;
+	ad.attrib = HeroAttrib::Nature;
+	ad.value = stoi(s);
+	prof.m_attrib.push_back(ad);
+	ist >> s;
+	ad.attrib = HeroAttrib::Lore;
+	ad.value = stoi(s);
+	prof.m_attrib.push_back(ad);
+	ist >> s;
+	ad.attrib = HeroAttrib::Logic;
+	ad.value = stoi(s);
+	prof.m_attrib.push_back(ad);
+	ist >> s;
+	ad.attrib = HeroAttrib::Luck;
+	ad.value = stoi(s);
+	prof.m_attrib.push_back(ad);
+	ist >> s;
+	ad.attrib = HeroAttrib::Gear;
+	ad.value = stoi(s);
+	prof.m_attrib.push_back(ad);
+	ist >> s;
+	ad.attrib = HeroAttrib::PhysTough;
+	ad.value = stoi(s);
+	prof.m_attrib.push_back(ad);
+	ist >> s;
+	ad.attrib = HeroAttrib::MentalTough;
+	ad.value = stoi(s);
+	prof.m_attrib.push_back(ad);
+	ist >> s;
+	ad.attrib = HeroAttrib::Alignment;
+	ad.value = stoi(s);
+	prof.m_attrib.push_back(ad);
+	ist >> s;
+	ad.attrib = HeroAttrib::Affability;
+	ad.value = stoi(s);
+	prof.m_attrib.push_back(ad);
 
 	return ist;
 }

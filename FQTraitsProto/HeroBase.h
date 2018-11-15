@@ -4,17 +4,25 @@
 #include <string>
 #include <map>
 
+class Profession;
+
 class Hero
 {
 public:
+	void initialize(const std::string &, char, const Profession &);
 	void setAttrib(HeroAttrib, unsigned int);
 	void modAttrib(HeroAttrib, int);
 	unsigned int getAttrib(HeroAttrib) const;
 	void setReputation(const std::string &, unsigned int);
 	void modReputation(const std::string &, int);
 	unsigned int getReputation(const std::string &) const;
+	void setName(const std::string &);
+	const std::string &getName() const;
+	void setGender(char);
+	char getGender() const;
 private:
 	std::string m_name;
+	char m_gender;
 	std::map<std::string, unsigned int> m_reputationMap;
 	// Attributes
 	unsigned int m_phys;

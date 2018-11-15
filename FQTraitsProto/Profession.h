@@ -9,6 +9,11 @@ class Profession
 {
 	friend std::istream &operator>>(std::istream &ist, Profession &prof);
 public:
+	struct AttribData
+	{
+		HeroAttrib attrib;
+		unsigned int value;
+	};
 	const std::string &name() const
 	{
 		return m_name;
@@ -17,12 +22,12 @@ public:
 	{
 		return m_title;
 	}
-	const std::vector<unsigned int> &attrib() const
+	const std::vector<AttribData> &attrib() const
 	{
 		return m_attrib;
 	}
 private:
 	std::string m_name;
 	std::vector<std::string> m_title;
-	std::vector<unsigned int> m_attrib;
+	std::vector<AttribData> m_attrib;
 };
