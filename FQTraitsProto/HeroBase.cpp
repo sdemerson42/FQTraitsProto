@@ -125,6 +125,7 @@ unsigned int Hero::getAttrib(HeroAttrib ha) const
 		return m_rogue;
 		break;
 	};
+	return 0;
 }
 
 void Hero::setReputation(const std::string &name, unsigned int val)

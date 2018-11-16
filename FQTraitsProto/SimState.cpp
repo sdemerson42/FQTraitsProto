@@ -50,9 +50,11 @@ SimState::~SimState()
 	m_logger->log("SimState destructing...\n");
 }
 
-void SimState::execute()
+void SimState::createHeroRoster(int total)
 {
-	for (int i = 0; i < 4; ++i)
+	m_hero.clear();
+
+	for (int i = 0; i < total; ++i)
 	{
 		Hero h;
 		int x = rand() % m_heroName.size();
@@ -66,4 +68,17 @@ void SimState::execute()
 	{
 		m_logger->log(h.getName() + '\n');
 	}
+}
+
+void SimState::createParty()
+{
+	m_party.initialize(&m_hero[0], &m_hero[1], &m_hero[2], &m_hero[3], 10);
+	m_logger->log("Party morale: " + std::to_string(m_party.getMorale()));
+	m_logger->log("\nParty health: " + std::to_string(m_party.getHealth()));
+}
+
+void SimState::execute()
+{
+	createHeroRoster(4);
+	createParty();
 }

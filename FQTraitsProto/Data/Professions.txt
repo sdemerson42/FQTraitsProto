@@ -7,13 +7,13 @@ Magnificent Spellchucker Wizardrous Smartypants Egghead *
 3 20 0 0 5 15 15 3 1 2 15 12 12
 
 Thief
-Shyster Shifty Klepto Jailbird Sticky-Fingered Weasel *
+Shyster Shifty Klepto Jailbird Sticky-Fingered Weasel Cretin *
 5 0 20 0 3 5 8 12 1 7 8 12 12
 
 Priest
-Sanctimonious Evangelist Holy-Roller Zealot Prayerchucker *
+Sanctimonious Evangelist Holy-Roller Zealot Prayerful *
 6 0 0 20 6 10 6 8 1 5 8 12 12
 
 Druid
-Bunnyhugger Hippie Organic Pet-Owner Granola-Muncher *
+Bunnyhugger Hippie Organic Pet-Owner Granola-Muncher Vegan *
 8 0 0 0 20 11 5 10 1 10 10 12 12

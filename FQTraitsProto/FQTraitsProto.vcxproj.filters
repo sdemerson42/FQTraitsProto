@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Conflicts">
-      <UniqueIdentifier>{7bab3209-11ce-4007-bc8b-86d16bd95a29}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Encounters">
       <UniqueIdentifier>{dc221ad7-9026-4d46-8c8d-12c44b7e9c66}</UniqueIdentifier>
     </Filter>
@@ -24,6 +21,9 @@
     </Filter>
     <Filter Include="Header Files\Loggers">
       <UniqueIdentifier>{1b86872f-a1db-4952-bfb2-dc5a5f4043b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Incidents">
+      <UniqueIdentifier>{70cde744-0dd2-4e67-9ea5-430a01fbeea3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,6 +39,9 @@
     <ClCompile Include="Profession.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Party.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -46,9 +49,6 @@
     </ClInclude>
     <ClInclude Include="HeroBase.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ConflictBase.h">
-      <Filter>Header Files\Conflicts</Filter>
     </ClInclude>
     <ClInclude Include="EncounterBase.h">
       <Filter>Header Files\Encounters</Filter>
@@ -70,6 +70,12 @@
     </ClInclude>
     <ClInclude Include="ConsoleLogger.h">
       <Filter>Header Files\Loggers</Filter>
+    </ClInclude>
+    <ClInclude Include="Incident.h">
+      <Filter>Header Files\Incidents</Filter>
+    </ClInclude>
+    <ClInclude Include="Party.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
