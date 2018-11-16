@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="HeroBase.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Party.cpp" />
@@ -153,9 +154,12 @@
     <ClCompile Include="SimState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AutoList.h" />
     <ClInclude Include="ConsoleLogger.h" />
     <ClInclude Include="DualLogger.h" />
     <ClInclude Include="EncounterBase.h" />
+    <ClInclude Include="EventBase.h" />
+    <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="HeroBase.h" />
     <ClInclude Include="ILogger.h" />
