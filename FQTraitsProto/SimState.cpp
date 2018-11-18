@@ -60,6 +60,7 @@ void SimState::createHeroRoster(int total)
 		int x = rand() % m_heroName.size();
 		int y = rand() % m_profession.size();
 		h.initialize(m_heroName[x].name, m_heroName[x].gender, m_profession[y]);
+		m_heroName.erase(begin(m_heroName) + x);
 		m_hero.push_back(h);
 	}
 

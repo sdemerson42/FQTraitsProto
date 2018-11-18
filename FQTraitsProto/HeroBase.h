@@ -20,6 +20,8 @@ public:
 	const std::string &getName() const;
 	void setGender(char);
 	char getGender() const;
+
+	static const unsigned int AttMax = 25;
 private:
 	std::string m_name;
 	char m_gender;

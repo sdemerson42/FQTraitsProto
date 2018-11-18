@@ -3,7 +3,7 @@
 
 void Hero::setAttrib(HeroAttrib ha, unsigned int val)
 {
-	if (val > 25) val = 25;
+	if (val > AttMax) val = AttMax;
 
 	switch (ha)
 	{
@@ -132,7 +132,7 @@ void Hero::setReputation(const std::string &name, unsigned int val)
 {
 	auto *p = &m_reputationMap[name];
 	*p += val;
-	if (*p > 25) *p = 25;
+	if (*p > AttMax) *p = AttMax;
 }
 
 void Hero::modReputation(const std::string &name, int val)
@@ -146,7 +146,10 @@ void Hero::modReputation(const std::string &name, int val)
 unsigned int Hero::getReputation(const std::string &name) const
 {
 	auto p = m_reputationMap.find(name);
-	return p->second;
+	if (p != end(m_reputationMap))
+		return p->second;
+
+	return AttMax / 2;
 }
 
 void Hero::setName(const std::string &name)
@@ -184,7 +187,7 @@ void Hero::initialize(const std::string &name, char gender, const Profession &pr
 	}
 
 	m_health = m_pTough;
-	m_morale = 20;
+	m_morale = (int)(.5f * (float)AttMax);
 	m_lev = 1;
 }
 
