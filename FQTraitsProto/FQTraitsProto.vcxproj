@@ -158,6 +158,7 @@
     <ClInclude Include="ConsoleLogger.h" />
     <ClInclude Include="DualLogger.h" />
     <ClInclude Include="EncounterBase.h" />
+    <ClInclude Include="Encounters.h" />
     <ClInclude Include="EventBase.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Globals.h" />

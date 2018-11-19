@@ -89,5 +89,8 @@
     <ClInclude Include="AutoList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Encounters.h">
+      <Filter>Header Files\Encounters</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

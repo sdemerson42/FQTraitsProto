@@ -20,17 +20,15 @@ void Party::initialize(Hero *h1, Hero *h2, Hero *h3, Hero *h4, unsigned int supp
 		}
 	}
 
-	updateMorale();
-	updateHealth();
 	m_loot = 0;
 	m_supplies = supplies;
 }
 
-void Party::updateMorale()
+int Party::getMorale() const
 {
-	m_morale = 0;
+	int morale{ 0 };
 	for (auto p : m_roster)
-		m_morale += p->getAttrib(HeroAttrib::Morale);
+		morale += p->getAttrib(HeroAttrib::Morale);
 
 	for (auto h : m_roster)
 	{
@@ -40,19 +38,15 @@ void Party::updateMorale()
 			{
 				auto rep = h->getReputation(oh->getName());
 				if (rep <= (int)(0.25f * (float)Hero::AttMax))
-					m_morale -= 5;
+					morale -= 5;
 				if (rep >= (int)(0.75f * (float)Hero::AttMax))
-					m_morale += 5;
+					morale += 5;
 			}
 		}
 	}
+	return morale;
 }
-void Party::updateHealth()
-{
-	m_health = 0;
-	for (auto p : m_roster)
-		m_health += p->getAttrib(HeroAttrib::Health);
-}
+
 void Party::updateLoot(int value)
 {
 	m_loot += value;
@@ -61,4 +55,12 @@ void Party::updateLoot(int value)
 std::vector<Hero *> &Party::getRoster()
 {
 	return m_roster;
+}
+
+unsigned int Party::getPartyAttrib(HeroAttrib ha) const
+{
+	unsigned int r = 0;
+	for (auto p : m_roster)
+		r += p->getAttrib(ha);
+	return r;
 }

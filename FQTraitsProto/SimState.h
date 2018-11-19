@@ -8,6 +8,7 @@
 #include "Party.h"
 
 class ILogger;
+class EncounterBase;
 
 class SimState
 {
@@ -18,6 +19,7 @@ public:
 private:
 	void createHeroRoster(int total);
 	void createParty();
+	void createEncounters();
 	std::vector<Profession> m_profession;
 	struct HeroNameData
 	{
@@ -28,4 +30,5 @@ private:
 	std::unique_ptr<ILogger> m_logger;
 	std::vector<Hero> m_hero;
 	Party m_party;
+	std::vector<std::unique_ptr<EncounterBase>> m_encounter;
 };

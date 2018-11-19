@@ -189,6 +189,7 @@ void Hero::initialize(const std::string &name, char gender, const Profession &pr
 	m_health = m_pTough;
 	m_morale = (int)(.5f * (float)AttMax);
 	m_lev = 1;
+	m_active = true;
 }
 
 //Physical, Magical, Rogue, Divine, Nature, Lore, Logic, Luck, Gear, PhysTough, MentalTough, Alignment, Affability,

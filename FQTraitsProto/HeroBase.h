@@ -20,6 +20,15 @@ public:
 	const std::string &getName() const;
 	void setGender(char);
 	char getGender() const;
+	
+	bool getActive() const
+	{
+		return m_active;
+	}
+	void setActive(bool state)
+	{
+		m_active = state;
+	}
 
 	static const unsigned int AttMax = 25;
 private:
@@ -44,5 +53,7 @@ private:
 	unsigned int m_morale;
 	unsigned int m_lev;
 	unsigned int m_rep;
+
+	bool m_active;
 };
 

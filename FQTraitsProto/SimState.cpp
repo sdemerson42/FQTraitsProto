@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include "ConsoleLogger.h"
+#include "Encounters.h"
 
 SimState::SimState()
 {
@@ -75,11 +76,19 @@ void SimState::createParty()
 {
 	m_party.initialize(&m_hero[0], &m_hero[1], &m_hero[2], &m_hero[3], 10);
 	m_logger->log("Party morale: " + std::to_string(m_party.getMorale()));
-	m_logger->log("\nParty health: " + std::to_string(m_party.getHealth()));
+	m_logger->log("\nParty health: " + std::to_string(m_party.getPartyAttrib(HeroAttrib::Health)));
+	m_logger->log("\nParty Level: " + std::to_string(m_party.getPartyAttrib(HeroAttrib::Level)));
+	m_logger->log("\nParty Gear: " + std::to_string(m_party.getPartyAttrib(HeroAttrib::Gear)));
+}
+
+void SimState::createEncounters()
+{
+	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 1, m_logger.get(), "Goblins"));
 }
 
 void SimState::execute()
 {
 	createHeroRoster(4);
 	createParty();
+	createEncounters();
 }
