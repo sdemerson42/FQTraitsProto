@@ -8,6 +8,6 @@ class ConsoleLogger : public ILogger
 public:
 	void log(const std::string &s) override
 	{
-		std::cout << s;
+		std::cout << parse(s);
 	}
 };

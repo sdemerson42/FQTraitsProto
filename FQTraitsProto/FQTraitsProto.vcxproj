@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="HeroBase.cpp" />
+    <ClCompile Include="ILogger.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Party.cpp" />
     <ClCompile Include="Profession.cpp" />

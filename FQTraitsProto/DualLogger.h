@@ -12,9 +12,10 @@ public:
 	{}
 	void log(const std::string &s) override
 	{
+		auto ss = parse(s);
 		std::ofstream ofs{ m_fName, std::ios_base::app };
-		ofs << s;
-		std::cout << s;
+		ofs << ss;
+		std::cout << ss;
 	}
 private:
 	std::string m_fName;

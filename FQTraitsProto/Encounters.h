@@ -17,7 +17,7 @@ public:
 
 		// Sample Encounter logic. To be modified.
 
-		upLog("\nOh no! Some " + m_namePlural + " have attacked!\n");
+		upLog("\nOh no! Some " + m_namePlural + " have {attacked/pounced/appeared}!\n");
 
 		if (party->getPartyAttrib(HeroAttrib::Level) > getLevel())
 			upLog("\nThe party is victorious!\n");
