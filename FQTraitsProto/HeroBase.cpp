@@ -1,5 +1,6 @@
 #include "HeroBase.h"
 #include "Profession.h"
+#include "Traits.h"
 
 void Hero::setAttrib(HeroAttrib ha, unsigned int val)
 {

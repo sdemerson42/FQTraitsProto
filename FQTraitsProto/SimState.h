@@ -9,6 +9,7 @@
 
 class ILogger;
 class EncounterBase;
+class TraitBase;
 
 class SimState
 {
@@ -16,10 +17,12 @@ public:
 	SimState();
 	~SimState();
 	void execute();
+	void upLog(const std::string &) const;
 private:
 	void createHeroRoster(int total);
 	void createParty();
 	void createEncounters();
+	void createTraits();
 	std::vector<Profession> m_profession;
 	struct HeroNameData
 	{
@@ -31,4 +34,5 @@ private:
 	std::vector<Hero> m_hero;
 	Party m_party;
 	std::vector<std::unique_ptr<EncounterBase>> m_encounter;
+	std::vector<std::unique_ptr<TraitBase>> m_trait;
 };

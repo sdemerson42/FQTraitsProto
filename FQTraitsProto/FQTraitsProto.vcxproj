@@ -170,6 +170,7 @@
     <ClInclude Include="Profession.h" />
     <ClInclude Include="SimState.h" />
     <ClInclude Include="TraitBase.h" />
+    <ClInclude Include="Traits.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

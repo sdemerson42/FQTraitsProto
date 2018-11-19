@@ -3,6 +3,7 @@
 #include <iostream>
 #include "ConsoleLogger.h"
 #include "Encounters.h"
+#include "Traits.h"
 
 SimState::SimState()
 {
@@ -12,7 +13,7 @@ SimState::SimState()
 
 	// Load Data
 
-	m_logger->log("SimState initializing...\n");
+	upLog("SimState initializing...\n");
 	std::ifstream ifs{ "Data/Professions.txt" };
 	while (true)
 	{
@@ -25,7 +26,7 @@ SimState::SimState()
 		}
 		m_profession.push_back(prof);
 	}
-	m_logger->log("Professions loaded...\n");
+	upLog("Professions loaded...\n");
 
 	ifs.close();
 	ifs.open("Data/HeroNames.txt");
@@ -43,12 +44,17 @@ SimState::SimState()
 		ifs >> data.gender;
 		m_heroName.push_back(data);
 	}
-	m_logger->log("Hero names loaded...\n");
+	upLog("Hero names loaded...\n");
 }
 
 SimState::~SimState()
 {
-	m_logger->log("SimState destructing...\n");
+	upLog("SimState destructing...\n");
+}
+
+void SimState::upLog(const std::string &s) const
+{
+	m_logger->log(s);
 }
 
 void SimState::createHeroRoster(int total)
@@ -62,23 +68,30 @@ void SimState::createHeroRoster(int total)
 		int y = rand() % m_profession.size();
 		h.initialize(m_heroName[x].name, m_heroName[x].gender, m_profession[y]);
 		m_heroName.erase(begin(m_heroName) + x);
+
+		int z = rand() % m_trait.size();
+		h.addTrait(m_trait[z].get());
+
 		m_hero.push_back(h);
 	}
 
-	m_logger->log("\n==== Hero Roster ====\n\n");
+	upLog("\n==== Hero Roster ====\n\n");
 	for (const auto &h : m_hero)
 	{
-		m_logger->log(h.getName() + '\n');
+		upLog(h.getName() + '\n');
+		auto tl = h.getTraits();
+		for (auto tp : tl)
+			upLog("(" + tp->name() + ")\n");
 	}
 }
 
 void SimState::createParty()
 {
 	m_party.initialize(&m_hero[0], &m_hero[1], &m_hero[2], &m_hero[3], 10);
-	m_logger->log("Party morale: " + std::to_string(m_party.getMorale()));
-	m_logger->log("\nParty health: " + std::to_string(m_party.getPartyAttrib(HeroAttrib::Health)));
-	m_logger->log("\nParty Level: " + std::to_string(m_party.getPartyAttrib(HeroAttrib::Level)));
-	m_logger->log("\nParty Gear: " + std::to_string(m_party.getPartyAttrib(HeroAttrib::Gear)));
+	upLog("Party morale: " + std::to_string(m_party.getMorale()));
+	upLog("\nParty health: " + std::to_string(m_party.getPartyAttrib(HeroAttrib::Health)));
+	upLog("\nParty Level: " + std::to_string(m_party.getPartyAttrib(HeroAttrib::Level)));
+	upLog("\nParty Gear: " + std::to_string(m_party.getPartyAttrib(HeroAttrib::Gear)));
 }
 
 void SimState::createEncounters()
@@ -86,8 +99,18 @@ void SimState::createEncounters()
 	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 1, m_logger.get(), "Goblins"));
 }
 
+void SimState::createTraits()
+{
+	m_trait.push_back(std::make_unique<TraitCowardly>());
+	m_trait.push_back(std::make_unique<TraitGoody>());
+	m_trait.push_back(std::make_unique<TraitHotheaded>());
+	m_trait.push_back(std::make_unique<TraitKlepto>());
+	upLog("Traits created...\n");
+}
+
 void SimState::execute()
 {
+	createTraits();
 	createHeroRoster(4);
 	createParty();
 	createEncounters();

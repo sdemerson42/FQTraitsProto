@@ -95,5 +95,8 @@
     <ClInclude Include="Encounters.h">
       <Filter>Header Files\Encounters</Filter>
     </ClInclude>
+    <ClInclude Include="Traits.h">
+      <Filter>Header Files\Traits</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,6 +3,9 @@
 #include "Globals.h"
 #include <string>
 #include <map>
+#include <vector>
+#include <memory>
+#include "TraitBase.h"
 
 class Profession;
 
@@ -20,6 +23,14 @@ public:
 	const std::string &getName() const;
 	void setGender(char);
 	char getGender() const;
+	void addTrait(TraitBase *tp)
+	{
+		m_trait.push_back(tp);
+	}
+	const std::vector<TraitBase *> &getTraits() const
+	{
+		return m_trait;
+	}
 	
 	bool getActive() const
 	{
@@ -35,6 +46,7 @@ private:
 	std::string m_name;
 	char m_gender;
 	std::map<std::string, unsigned int> m_reputationMap;
+	std::vector<TraitBase *> m_trait;
 	// Attributes
 	unsigned int m_phys;
 	unsigned int m_mag;
