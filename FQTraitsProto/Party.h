@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "HeroBase.h"
+#include "Globals.h"
 
 class Hero;
 
@@ -12,6 +12,10 @@ public:
 	void updateLoot(int value);
 	std::vector<Hero *> &getRoster();
 	int getMorale() const;
+	void addLoot(unsigned int val)
+	{
+		m_loot += val;
+	}
 	unsigned int getLoot() const
 	{
 		return m_loot;

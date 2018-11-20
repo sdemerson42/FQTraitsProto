@@ -114,4 +114,15 @@ void SimState::execute()
 	createHeroRoster(4);
 	createParty();
 	createEncounters();
+
+	upLog("\nBeginning simulation...\n\nDay 1 in the dungeon:");
+	auto incidents = m_encounter[0]->resolve(&m_party);
+
+	upLog("\n\nThat evening 'round the campfire:\n");
+
+	for (auto &upi : incidents)
+	{
+		auto s = upi->resolve(&m_party, incidents);
+		upLog(s);
+	}
 }

@@ -28,13 +28,14 @@ int Party::getMorale() const
 {
 	int morale{ 0 };
 	for (auto p : m_roster)
-		morale += p->getAttrib(HeroAttrib::Morale);
+		if (p->getActive())
+			morale += p->getAttrib(HeroAttrib::Morale);
 
 	for (auto h : m_roster)
 	{
 		for (auto oh : m_roster)
 		{
-			if (h != oh)
+			if (h != oh && h->getActive() && oh->getActive())
 			{
 				auto rep = h->getReputation(oh->getName());
 				if (rep <= (int)(0.25f * (float)Hero::AttMax))
@@ -61,6 +62,7 @@ unsigned int Party::getPartyAttrib(HeroAttrib ha) const
 {
 	unsigned int r = 0;
 	for (auto p : m_roster)
-		r += p->getAttrib(ha);
+		if (p->getActive())
+			r += p->getAttrib(ha);
 	return r;
 }

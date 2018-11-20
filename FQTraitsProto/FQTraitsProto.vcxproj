@@ -149,6 +149,7 @@
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="HeroBase.cpp" />
     <ClCompile Include="ILogger.cpp" />
+    <ClCompile Include="Incidents.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Party.cpp" />
     <ClCompile Include="Profession.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="HeroBase.h" />
     <ClInclude Include="ILogger.h" />
     <ClInclude Include="Incident.h" />
+    <ClInclude Include="Incidents.h" />
     <ClInclude Include="Party.h" />
     <ClInclude Include="Profession.h" />
     <ClInclude Include="SimState.h" />

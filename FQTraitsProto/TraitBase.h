@@ -31,9 +31,7 @@ public:
 			return true;
 		return false;
 	}
-	virtual void doEncounterPhase(EncounterBase *, Party *) = 0;
-	virtual void doLootPhase(EncounterBase *, Party *) = 0;
-	virtual void doIncidentPhase(IncidentBase *, Party *) = 0;
+	virtual void doIncidentPhase(Party *, std::vector<std::unique_ptr<IncidentBase>> &) = 0;
 private:
 	std::string m_name;
 	std::vector<TraitBase *> m_incompatible;

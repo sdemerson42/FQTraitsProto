@@ -5,7 +5,7 @@
 #include <map>
 #include <vector>
 #include <memory>
-#include "TraitBase.h"
+#include "Traits.h"
 
 class Profession;
 
@@ -30,6 +30,13 @@ public:
 	const std::vector<TraitBase *> &getTraits() const
 	{
 		return m_trait;
+	}
+	bool hasTrait(const std::string &tname) const
+	{
+		for (auto tp : m_trait)
+			if (tp->name() == tname)
+				return true;
+		return false;
 	}
 	
 	bool getActive() const

@@ -2,8 +2,7 @@
 
 #include "TraitBase.h"
 
-#include "Encounters.h"
-#include "Incident.h"
+#include "Incidents.h"
 #include "Party.h"
 #include "HeroBase.h"
 
@@ -13,13 +12,7 @@ public:
 	TraitKlepto() :
 		TraitBase{ "Kleptomaniac" }
 	{}
-	void doEncounterPhase(EncounterBase *, Party *) override
-	{
-	}
-	void doLootPhase(EncounterBase *, Party *) override
-	{
-	}
-	void doIncidentPhase(IncidentBase *, Party *) override
+	void doIncidentPhase(Party *, std::vector<std::unique_ptr<IncidentBase>> &iv) override
 	{
 	}
 };
@@ -30,13 +23,7 @@ public:
 	TraitHotheaded() :
 		TraitBase{ "Hotheaded" }
 	{}
-	void doEncounterPhase(EncounterBase *, Party *) override
-	{
-	}
-	void doLootPhase(EncounterBase *, Party *) override
-	{
-	}
-	void doIncidentPhase(IncidentBase *, Party *) override
+	void doIncidentPhase(Party *, std::vector<std::unique_ptr<IncidentBase>> &iv) override
 	{
 	}
 };
@@ -47,13 +34,7 @@ public:
 	TraitCowardly() :
 		TraitBase{ "Cowardly" }
 	{}
-	void doEncounterPhase(EncounterBase *, Party *) override
-	{
-	}
-	void doLootPhase(EncounterBase *, Party *) override
-	{
-	}
-	void doIncidentPhase(IncidentBase *, Party *) override
+	void doIncidentPhase(Party *, std::vector<std::unique_ptr<IncidentBase>> &iv) override
 	{
 	}
 };
@@ -64,13 +45,7 @@ public:
 	TraitGoody() :
 		TraitBase{ "Goody Two Shoes" }
 	{}
-	void doEncounterPhase(EncounterBase *, Party *) override
-	{
-	}
-	void doLootPhase(EncounterBase *, Party *) override
-	{
-	}
-	void doIncidentPhase(IncidentBase *, Party *) override
+	void doIncidentPhase(Party *, std::vector<std::unique_ptr<IncidentBase>> &iv) override
 	{
 	}
 };

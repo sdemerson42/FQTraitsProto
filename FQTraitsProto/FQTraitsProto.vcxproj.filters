@@ -48,6 +48,9 @@
     <ClCompile Include="ILogger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Incidents.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -77,9 +80,6 @@
     <ClInclude Include="ConsoleLogger.h">
       <Filter>Header Files\Loggers</Filter>
     </ClInclude>
-    <ClInclude Include="Incident.h">
-      <Filter>Header Files\Incidents</Filter>
-    </ClInclude>
     <ClInclude Include="Party.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -97,6 +97,12 @@
     </ClInclude>
     <ClInclude Include="Traits.h">
       <Filter>Header Files\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="Incident.h">
+      <Filter>Header Files\Incidents</Filter>
+    </ClInclude>
+    <ClInclude Include="Incidents.h">
+      <Filter>Header Files\Incidents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

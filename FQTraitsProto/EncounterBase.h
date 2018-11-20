@@ -3,8 +3,8 @@
 #include "Globals.h"
 #include "ILogger.h"
 
-class Party;
 class IncidentBase;
+class Party;
 
 #include <vector>
 #include <memory>
