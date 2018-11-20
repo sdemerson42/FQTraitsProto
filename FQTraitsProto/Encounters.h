@@ -19,9 +19,35 @@ public:
 
 		upLog("\nOh no! Some " + m_namePlural + " have {attacked/pounced/appeared}!\n");
 
-		if (party->getPartyAttrib(HeroAttrib::Level) > getLevel())
+		int bonus{ 0 };
+
+		
+
+		if (party->getPartyAttrib(HeroAttrib::Level) + bonus > getLevel())
 		{
 			upLog("The party {beats them senseless/gives them a stern talking-to/does terrible, terrible things to them}!\n");
+
+			// Hotheaded check
+
+			for (auto hp : party->getRoster())
+			{
+				if (hp->hasTrait("Hotheaded"))
+				{
+					upLog(hp->getName() + " charges heedlessly into battle, ");
+					int x = rand() % 10;
+					if (x < hp->getAttrib(HeroAttrib::Physical))
+					{
+						upLog("cutting a glorious, bloody path through the enemy!\n");
+						bonus += 1;
+					}
+					else
+					{
+						upLog("tripping over some {broken furniture/skulls/crockery} and receiving an injury...\n");
+						bonus -= 1;
+						r.push_back(std::make_unique<IncidentWounded>(hp));
+					}
+				}
+			}
 
 			unsigned int loot = getLevel() * rand() % 20 + 10;
 			upLog("After {searching/desecrating/inspecting} the {corpses/bodies/bloody mess remaining} the party finds " + std::to_string(loot) + " loot!\n");
@@ -53,8 +79,11 @@ public:
 					}
 				}
 			}
+
 			upLog("The party gains " + std::to_string(loot) + " loot.\n");
 			party->addLoot(loot);
+
+
 		}
 		else
 			upLog("\nThe party is vanquished...\n");

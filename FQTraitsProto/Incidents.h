@@ -15,3 +15,14 @@ private:
 	Hero *m_thief;
 	Hero *m_observer;
 };
+
+class IncidentWounded : public IncidentBase
+{
+public:
+	IncidentWounded(Hero *wounded) :
+		m_wounded{ wounded }
+	{}
+	std::string resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &) override;
+private:
+	Hero *m_wounded;
+};
