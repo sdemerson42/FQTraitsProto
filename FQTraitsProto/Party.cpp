@@ -16,6 +16,16 @@ void Party::initialize(Hero *h1, Hero *h2, Hero *h3, Hero *h4, unsigned int supp
 			if (oh != h)
 			{
 				h->setReputation(oh->getName(), Hero::AttMax / 2);
+
+				// Modify based on Affability and Alignment differences
+
+				int affMod = ((int)oh->getAttrib(HeroAttrib::Affability) - ((int)Hero::AttMax / 2)) / 3;
+				int alMod = abs((int)((int)oh->getAttrib(HeroAttrib::Alignment) - (int)h->getAttrib(HeroAttrib::Alignment)));
+				alMod = (2 - (alMod / 4));
+
+				h->modReputation(oh->getName(), affMod);
+				h->modReputation(oh->getName(), alMod);
+
 			}
 		}
 	}
@@ -56,6 +66,23 @@ void Party::updateLoot(int value)
 std::vector<Hero *> &Party::getRoster()
 {
 	return m_roster;
+}
+
+std::vector<Hero *> Party::getActiveRoster()
+{
+	std::vector<Hero *> r;
+	for (auto p : m_roster)
+		if (p->getActive())
+			r.push_back(p);
+	return r;
+}
+
+Hero *Party::getHeroWithTrait(const std::string &trait)
+{
+	for (auto p : m_roster)
+		if (p->hasTrait(trait))
+			return p;
+	return nullptr;
 }
 
 unsigned int Party::getPartyAttrib(HeroAttrib ha) const

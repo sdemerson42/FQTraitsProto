@@ -23,6 +23,35 @@ public:
 	const std::string &getName() const;
 	void setGender(char);
 	char getGender() const;
+	std::string gpFirst(const std::string &s) const
+	{
+		if (s == "1")
+		{
+			return m_gender == 'M' ? "he" : "she";
+		}
+		if (s == "2")
+		{
+			return m_gender == 'M' ? "him" : "her";
+		}
+		if (s == "p")
+		{
+			return m_gender == 'M' ? "his" : "her";
+		}
+		if (s == "1c")
+		{
+			return m_gender == 'M' ? "He" : "She";
+		}
+		if (s == "2c")
+		{
+			return m_gender == 'M' ? "Him" : "Her";
+		}
+		if (s == "pc")
+		{
+			return m_gender == 'M' ? "His" : "Her";
+		}
+		return "";
+	}
+	HeroAttrib getBestCoreAttrib() const;
 	void addTrait(TraitBase *tp)
 	{
 		m_trait.push_back(tp);

@@ -11,6 +11,8 @@ public:
 	void initialize(Hero *h1, Hero *h2, Hero *h3, Hero *h4, unsigned int supplies);
 	void updateLoot(int value);
 	std::vector<Hero *> &getRoster();
+	std::vector<Hero *> getActiveRoster();
+	Hero *getHeroWithTrait(const std::string &);
 	int getMorale() const;
 	void addLoot(unsigned int val)
 	{

@@ -132,7 +132,7 @@ unsigned int Hero::getAttrib(HeroAttrib ha) const
 void Hero::setReputation(const std::string &name, unsigned int val)
 {
 	auto *p = &m_reputationMap[name];
-	*p += val;
+	*p = val;
 	if (*p > AttMax) *p = AttMax;
 }
 
@@ -141,7 +141,7 @@ void Hero::modReputation(const std::string &name, int val)
 	int mval = m_reputationMap[name];
 	mval += val;
 	if (mval < 0) mval = 0;
-	setReputation(name, mval);
+	setReputation(name, (unsigned int)mval);
 }
 
 unsigned int Hero::getReputation(const std::string &name) const
@@ -184,13 +184,30 @@ void Hero::initialize(const std::string &name, char gender, const Profession &pr
 
 	for (const auto &data : attrib)
 	{
-		setAttrib(data.attrib, data.value);
+		unsigned int val = rand() % (data.vMax - data.vMin + 1) + data.vMin;
+		setAttrib(data.attrib, val);
 	}
+
 
 	m_health = m_pTough;
 	m_morale = (int)(.5f * (float)AttMax);
 	m_lev = 1;
 	m_active = true;
+}
+
+HeroAttrib Hero::getBestCoreAttrib() const
+{
+	HeroAttrib ha{ HeroAttrib::Physical };
+	if (getAttrib(HeroAttrib::Magical) > getAttrib(ha))
+		ha = HeroAttrib::Magical;
+	if (getAttrib(HeroAttrib::Rogue) > getAttrib(ha))
+		ha = HeroAttrib::Rogue;
+	if (getAttrib(HeroAttrib::Divine) > getAttrib(ha))
+		ha = HeroAttrib::Divine;
+	if (getAttrib(HeroAttrib::Nature) > getAttrib(ha))
+		ha = HeroAttrib::Nature;
+
+	return ha;
 }
 
 //Physical, Magical, Rogue, Divine, Nature, Lore, Logic, Luck, Gear, PhysTough, MentalTough, Alignment, Affability,

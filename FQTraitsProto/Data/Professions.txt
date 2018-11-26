@@ -1,19 +1,80 @@
 Warrior
 Thug Goon Obliterator Mangler Legbreaker Ruthless *
-20 0 0 0 5 3 5 10 1 16 6 12 12
+15 20
+0 5
+0 5
+0 5
+0 5
+1 10
+2 12
+5 20
+1 2
+12 20
+8 20
+0 25
+0 25
+
 
 Mage
 Magnificent Spellchucker Wizardrous Smartypants Egghead *
-3 20 0 0 5 15 15 3 1 2 15 12 12
+1 6
+15 20
+0 5
+0 5
+0 5
+10 20
+8 18
+5 20
+1 2
+2 8
+12 20
+0 25
+0 25
 
 Thief
 Shyster Shifty Klepto Jailbird Sticky-Fingered Weasel Cretin *
-5 0 20 0 3 5 8 12 1 7 8 12 12
+5 10
+0 5
+15 20
+0 5
+0 5
+2 12
+10 16
+5 20
+1 2
+8 15
+8 15
+0 12
+0 25
 
 Priest
 Sanctimonious Evangelist Holy-Roller Zealot Prayerful *
-6 0 0 20 6 10 6 8 1 5 8 12 12
+6 12
+0 5
+0 3
+15 20
+0 5
+10 20
+2 12
+5 20
+1 2
+6 12
+10 16
+13 25
+0 25
 
 Druid
 Bunnyhugger Hippie Organic Pet-Owner Granola-Muncher Vegan *
-8 0 0 0 20 11 5 10 1 10 10 12 12
+10 14
+0 5
+0 5
+0 5
+15 20
+5 15
+5 13
+5 20
+1 2
+12 16
+8 12
+7 16
+0 25

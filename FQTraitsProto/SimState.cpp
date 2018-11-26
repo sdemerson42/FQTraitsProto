@@ -105,6 +105,18 @@ void SimState::createTraits()
 	m_trait.push_back(std::make_unique<TraitGoody>());
 	m_trait.push_back(std::make_unique<TraitHotheaded>());
 	m_trait.push_back(std::make_unique<TraitKlepto>());
+	m_trait.push_back(std::make_unique<TraitVengeful>());
+
+	m_trait.push_back(std::make_unique<TraitFaceblind>());
+	m_trait.push_back(std::make_unique<TraitSkeptical>());
+	m_trait.push_back(std::make_unique<TraitBossy>());
+	m_trait.push_back(std::make_unique<TraitBloodthirsty>());
+	m_trait.push_back(std::make_unique<TraitPious>());
+
+	m_trait.push_back(std::make_unique<TraitHaunted>());
+	m_trait.push_back(std::make_unique<TraitDiplomatic>());
+
+
 	upLog("Traits created...\n");
 }
 

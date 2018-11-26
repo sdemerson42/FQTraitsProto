@@ -29,7 +29,7 @@ public:
 
 			// Hotheaded check
 
-			for (auto hp : party->getRoster())
+			for (auto hp : party->getActiveRoster())
 			{
 				if (hp->hasTrait("Hotheaded"))
 				{

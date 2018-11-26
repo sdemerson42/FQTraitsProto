@@ -12,7 +12,8 @@ public:
 	struct AttribData
 	{
 		HeroAttrib attrib;
-		unsigned int value;
+		unsigned int vMin;
+		unsigned int vMax;
 	};
 	const std::string &name() const
 	{
