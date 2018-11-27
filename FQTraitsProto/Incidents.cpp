@@ -30,3 +30,8 @@ std::string IncidentWounded::resolve(Party *party, std::vector<std::unique_ptr<I
 	}
 	return s;
 }
+
+std::string IncidentFlee::resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &)
+{
+	return std::string{};
+}

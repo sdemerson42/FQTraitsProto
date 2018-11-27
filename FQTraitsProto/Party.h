@@ -14,6 +14,8 @@ public:
 	std::vector<Hero *> getActiveRoster();
 	Hero *getHeroWithTrait(const std::string &);
 	int getMorale() const;
+	unsigned int getBestAttribTotal() const;
+	void activateParty();
 	void addLoot(unsigned int val)
 	{
 		m_loot += val;

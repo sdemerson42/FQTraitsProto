@@ -23,7 +23,7 @@ public:
 	const std::string &getName() const;
 	void setGender(char);
 	char getGender() const;
-	std::string gpFirst(const std::string &s) const
+	std::string gp(const std::string &s) const
 	{
 		if (s == "1")
 		{
@@ -52,6 +52,7 @@ public:
 		return "";
 	}
 	HeroAttrib getBestCoreAttrib() const;
+	unsigned int getBestCoreAttribValue() const;
 	void addTrait(TraitBase *tp)
 	{
 		m_trait.push_back(tp);

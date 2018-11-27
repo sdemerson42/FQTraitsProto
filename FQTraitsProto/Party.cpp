@@ -88,8 +88,23 @@ Hero *Party::getHeroWithTrait(const std::string &trait)
 unsigned int Party::getPartyAttrib(HeroAttrib ha) const
 {
 	unsigned int r = 0;
-	for (auto p : m_roster)
-		if (p->getActive())
-			r += p->getAttrib(ha);
+	for (auto hp : m_roster)
+		if (hp->getActive())
+			r += hp->getAttrib(ha);
 	return r;
+}
+
+unsigned int Party::getBestAttribTotal() const
+{
+	unsigned int r{ 0 };
+	for (auto hp : m_roster)
+		if (hp->getActive())
+			r += hp->getBestCoreAttribValue();
+	return r;
+}
+
+void Party::activateParty()
+{
+	for (auto hp : m_roster)
+		hp->setActive(true);
 }

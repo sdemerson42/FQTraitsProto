@@ -210,5 +210,10 @@ HeroAttrib Hero::getBestCoreAttrib() const
 	return ha;
 }
 
+unsigned int Hero::getBestCoreAttribValue() const
+{
+	return getAttrib(getBestCoreAttrib());
+}
+
 //Physical, Magical, Rogue, Divine, Nature, Lore, Logic, Luck, Gear, PhysTough, MentalTough, Alignment, Affability,
 //Health, Morale, Level, Reputation

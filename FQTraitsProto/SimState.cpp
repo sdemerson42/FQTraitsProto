@@ -96,7 +96,7 @@ void SimState::createParty()
 
 void SimState::createEncounters()
 {
-	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 1, m_logger.get(), "Goblins"));
+	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 3, m_logger.get(), "Goblins"));
 }
 
 void SimState::createTraits()

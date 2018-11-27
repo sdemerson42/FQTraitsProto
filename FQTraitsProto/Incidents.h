@@ -19,10 +19,22 @@ private:
 class IncidentWounded : public IncidentBase
 {
 public:
-	IncidentWounded(Hero *wounded) :
-		m_wounded{ wounded }
+	IncidentWounded(Hero *wounded, bool serious = false) :
+		m_wounded{ wounded }, m_serious{ serious }
 	{}
 	std::string resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &) override;
 private:
 	Hero *m_wounded;
+	bool m_serious;
+};
+
+class IncidentFlee : public IncidentBase
+{
+public:
+	IncidentFlee(Hero *hero) :
+		m_hero{ hero }
+	{}
+	std::string resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &) override;
+private:
+	Hero *m_hero;
 };
