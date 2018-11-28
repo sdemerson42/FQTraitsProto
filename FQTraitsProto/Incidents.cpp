@@ -4,26 +4,24 @@
 
 std::string IncidentTheft::resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &)
 {
-	m_thief->setActive(false);
-	return m_observer->getName() + " decides to enact martial law and {strangles/bludgeons/whacks} " + m_thief->getName()
-		+ " in " + (m_thief->getGender() == 'M' ? "his " : "her ") + "sleep.\n";
-
+	
+	return "";
 }
 
 std::string IncidentWounded::resolve(Party *party, std::vector<std::unique_ptr<IncidentBase>> &)
 {
-	std::string s = m_wounded->getName() + " has a bit of a cry about " + (m_wounded->getGender() == 'M' ? "his " : "her ")
+	std::string s = m_wounded->getName() + " {has a bit of a cry about/whines about/keeps poking at} " + (m_wounded->getGender() == 'M' ? "his " : "her ")
 		+ "injuries and loses morale...\n";
-	m_wounded->modAttrib(HeroAttrib::Morale, -1);
-	auto &hv = party->getRoster();
+	m_wounded->modAttrib(HeroAttrib::Morale, rand() % 3 - 3);
+	auto &hv = party->getActiveRoster();
 	for (auto &hp : hv)
 	{
-		if (hp->hasTrait("Goody Two Shoes"))
+		if (hp != m_wounded && (hp->hasTrait("Goody Two Shoes") || hp->getReputation(m_wounded->getName()) > Hero::AttMax * 2/3))
 		{
 			std::string ss = hp->getName() + " {sings a bawdy song/performs a puppet show} for " +
 				(m_wounded->getGender() == 'M' ? "him" : "her") + ", which seems to help!\n";
 			s += ss;
-			m_wounded->modAttrib(HeroAttrib::Morale, 1);
+			m_wounded->modAttrib(HeroAttrib::Morale, rand() % 4 + 1);
 			m_wounded->modReputation(hp->getName(), 2);
 			break;
 		}

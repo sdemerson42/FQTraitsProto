@@ -23,6 +23,7 @@ private:
 	void createParty();
 	void createEncounters();
 	void createTraits();
+	void runSim(int level, int size, HeroAttrib primaryAttrib, HeroAttrib secondaryAttrib);
 	std::vector<Profession> m_profession;
 	struct HeroNameData
 	{

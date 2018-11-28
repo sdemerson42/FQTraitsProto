@@ -97,7 +97,7 @@ public:
 
 		for (auto hp : party->getActiveRoster())
 		{
-			if (hp->hasTrait("Hotheaded"))
+			if (hp->hasTrait("Hotheaded") || hp->hasTrait("Bloodthirsty"))
 			{
 				// 50% chance of charging in...
 				if (rand() % 2 == 0)
@@ -106,7 +106,7 @@ public:
 					// Injured vs. Bonus
 					if (rand() % Hero::AttMax + 1 + hp->getAttrib(HeroAttrib::Luck) >= Hero::AttMax)
 					{
-						upLog(hp->gp("1c") + " {terrifies the enemy!/commits a glorious massacre!/litters the floor with corpses!}\n");
+						upLog(hp->gp("1c") + " {terrifies the enemy!/commits a glorious massacre!/litters the floor with corpses!/bathes in the enemy's blood!}\n");
 						bonus += 10;
 					}
 					else
@@ -127,7 +127,7 @@ public:
 				}
 				else
 				{
-					upLog("and {hides under some mouldering rugs/runs gallantly away/decides to sit this one out}.\n");
+					upLog("and {hides behind some crockery/runs gallantly away/decides to sit this one out}.\n");
 					bonus -= hp->getBestCoreAttribValue();
 					// Add incident...
 					r.push_back(std::make_unique<IncidentFlee>(hp));

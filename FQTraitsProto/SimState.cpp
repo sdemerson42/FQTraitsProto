@@ -120,13 +120,8 @@ void SimState::createTraits()
 	upLog("Traits created...\n");
 }
 
-void SimState::execute()
+void SimState::runSim(int level, int size, HeroAttrib primaryAttrib, HeroAttrib secondaryAttrib)
 {
-	createTraits();
-	createHeroRoster(4);
-	createParty();
-	createEncounters();
-
 	upLog("\nBeginning simulation...\n\nDay 1 in the dungeon:");
 	auto incidents = m_encounter[0]->resolve(&m_party);
 
@@ -137,4 +132,13 @@ void SimState::execute()
 		auto s = upi->resolve(&m_party, incidents);
 		upLog(s);
 	}
+}
+
+void SimState::execute()
+{
+	createTraits();
+	createHeroRoster(4);
+	createParty();
+	createEncounters();
+	runSim(m_party.getPartyAttrib(HeroAttrib::Level), 5, HeroAttrib::Physical, HeroAttrib::Magical);
 }
