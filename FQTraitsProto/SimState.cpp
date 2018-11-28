@@ -96,7 +96,12 @@ void SimState::createParty()
 
 void SimState::createEncounters()
 {
-	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 3, m_logger.get(), "Goblins"));
+	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 4, m_logger.get(), "Goblins"));
+	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 5, m_logger.get(), "Troglodytes"));
+	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 6, m_logger.get(), "Dullards"));
+	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 7, m_logger.get(), "Zombies"));
+	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 8, m_logger.get(), "Trolls"));
+	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 9, m_logger.get(), "Real Bastards"));
 }
 
 void SimState::createTraits()
@@ -122,23 +127,71 @@ void SimState::createTraits()
 
 void SimState::runSim(int level, int size, HeroAttrib primaryAttrib, HeroAttrib secondaryAttrib)
 {
-	upLog("\nBeginning simulation...\n\nDay 1 in the dungeon:");
-	auto incidents = m_encounter[0]->resolve(&m_party);
+	upLog("\nBeginning simulation...\n\n");
 
-	upLog("\n\nThat evening 'round the campfire:\n");
+	int day = 0;
 
-	for (auto &upi : incidents)
+	while (day < size)
 	{
-		auto s = upi->resolve(&m_party, incidents);
-		upLog(s);
+
+		upLog("Day " + std::to_string(day + 1) + ":\n\n");
+
+		// Select and play an Encounter
+
+		int incIndex;
+		while (true)
+		{
+			incIndex = rand() % m_encounter.size();
+			if (abs(level - (int)m_encounter[incIndex]->getLevel()) <= 5)
+				break;
+		}
+
+		auto incidents = m_encounter[incIndex]->resolve(&m_party);
+		// (Remove Incident card from deck)
+		m_encounter.erase(std::begin(m_encounter) + incIndex);
+
+		// Campfire Traits behavior...
+
+		upLog("\nThat evening 'round the campfire:\n\n");
+
+		for (auto hp : m_party.getActiveRoster())
+			for (auto tp : hp->getTraits())
+				tp->doIncidentPhase(&m_party, incidents);
+
+		// Resolve Incidents...
+
+		for (auto &upi : incidents)		
+			upi->resolve(&m_party, incidents);
+		
+		// Failure checks...
+
+		if (m_party.getActiveRoster().size() == 0)
+		{
+			upLog("\n\n*** The party has been destroyed ***\n\n");
+			return;
+		}
+
+		if (m_party.getPartyAttrib(HeroAttrib::Morale) < Hero::AttMax * 4 / 5)
+		{
+			upLog("\n\n*** The party is too disheartened to continue and abandons the quest ***\n\n");
+			return;
+		}
+		
+		++day;
 	}
+
+	// Victory!
+
+	upLog("\n\n*** The party is victorious! ***\n\n");
+	
 }
 
 void SimState::execute()
 {
+	IncidentBase::setLogger(m_logger.get());
 	createTraits();
 	createHeroRoster(4);
 	createParty();
 	createEncounters();
-	runSim(m_party.getPartyAttrib(HeroAttrib::Level), 5, HeroAttrib::Physical, HeroAttrib::Magical);
+	runSim(5, 5, HeroAttrib::Physical, HeroAttrib::Magical);
 }

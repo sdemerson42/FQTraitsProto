@@ -12,7 +12,7 @@ public:
 	void updateLoot(int value);
 	std::vector<Hero *> &getRoster();
 	std::vector<Hero *> getActiveRoster();
-	Hero *getHeroWithTrait(const std::string &);
+	Hero *getActiveHeroWithTrait(const std::string &);
 	int getMorale() const;
 	unsigned int getBestAttribTotal() const;
 	void activateParty();

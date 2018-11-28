@@ -10,7 +10,7 @@ public:
 	IncidentTheft(Hero *thief, Hero *observer) :
 		m_thief{ thief }, m_observer{ observer }
 	{}
-	std::string resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &) override;
+	void resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &) override;
 private:
 	Hero *m_thief;
 	Hero *m_observer;
@@ -22,7 +22,7 @@ public:
 	IncidentWounded(Hero *wounded, bool serious = false) :
 		m_wounded{ wounded }, m_serious{ serious }
 	{}
-	std::string resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &) override;
+	void resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &) override;
 private:
 	Hero *m_wounded;
 	bool m_serious;
@@ -34,7 +34,7 @@ public:
 	IncidentFlee(Hero *hero) :
 		m_hero{ hero }
 	{}
-	std::string resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &) override;
+	void resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &) override;
 private:
 	Hero *m_hero;
 };

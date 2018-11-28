@@ -149,6 +149,7 @@
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="HeroBase.cpp" />
     <ClCompile Include="ILogger.cpp" />
+    <ClCompile Include="Incident.cpp" />
     <ClCompile Include="Incidents.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Party.cpp" />

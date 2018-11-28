@@ -77,10 +77,10 @@ std::vector<Hero *> Party::getActiveRoster()
 	return r;
 }
 
-Hero *Party::getHeroWithTrait(const std::string &trait)
+Hero *Party::getActiveHeroWithTrait(const std::string &trait)
 {
 	for (auto p : m_roster)
-		if (p->hasTrait(trait))
+		if (p->hasTrait(trait) && p->getActive())
 			return p;
 	return nullptr;
 }
