@@ -3,10 +3,12 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <memory>
 
 class EncounterBase;
 class Party;
 class IncidentBase;
+class Hero;
 
 class TraitBase
 {
@@ -32,6 +34,9 @@ public:
 		return false;
 	}
 	virtual void doIncidentPhase(Party *, std::vector<std::unique_ptr<IncidentBase>> &) = 0;
+	virtual void initialize(Hero *)
+	{
+	}
 private:
 	std::string m_name;
 	std::vector<TraitBase *> m_incompatible;

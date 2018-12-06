@@ -138,6 +138,19 @@ void Hero::setReputation(const std::string &name, unsigned int val)
 
 void Hero::modReputation(const std::string &name, int val)
 {
+	// Exceptions
+
+	if (hasTrait("Vengeful"))
+	{
+		auto rep = getReputation(name);
+		if (rep == 0) return;
+		if (val < 0)
+		{
+			setReputation(name, 0);
+			return;
+		}
+	}
+
 	int mval = m_reputationMap[name];
 	mval += val;
 	if (mval < 0) mval = 0;

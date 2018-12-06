@@ -4,7 +4,6 @@
 
 #include "Incidents.h"
 #include "Party.h"
-#include "HeroBase.h"
 
 class TraitKlepto : public TraitBase
 {
@@ -15,6 +14,7 @@ public:
 	void doIncidentPhase(Party *, std::vector<std::unique_ptr<IncidentBase>> &iv) override
 	{
 	}
+	void initialize(Hero *) override;
 };
 
 class TraitHotheaded : public TraitBase
@@ -61,11 +61,11 @@ public:
 	}
 };
 
-class TraitFaceblind : public TraitBase
+class TraitEgotistical : public TraitBase
 {
 public:
-	TraitFaceblind() :
-		TraitBase{ "Face Blind" }
+	TraitEgotistical() :
+		TraitBase{ "Egotistical" }
 	{}
 	void doIncidentPhase(Party *, std::vector<std::unique_ptr<IncidentBase>> &iv) override
 	{

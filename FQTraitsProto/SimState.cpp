@@ -72,6 +72,11 @@ void SimState::createHeroRoster(int total)
 		int z = rand() % m_trait.size();
 		h.addTrait(m_trait[z].get());
 
+		for (auto tp : h.getTraits())
+		{
+			tp->initialize(&h);
+		}
+
 		m_hero.push_back(h);
 	}
 
@@ -112,7 +117,7 @@ void SimState::createTraits()
 	m_trait.push_back(std::make_unique<TraitKlepto>());
 	m_trait.push_back(std::make_unique<TraitVengeful>());
 
-	m_trait.push_back(std::make_unique<TraitFaceblind>());
+	m_trait.push_back(std::make_unique<TraitEgotistical>());
 	m_trait.push_back(std::make_unique<TraitSkeptical>());
 	m_trait.push_back(std::make_unique<TraitBossy>());
 	m_trait.push_back(std::make_unique<TraitBloodthirsty>());
@@ -176,6 +181,8 @@ void SimState::runSim(int level, int size, HeroAttrib primaryAttrib, HeroAttrib 
 			upLog("\n\n*** The party is too disheartened to continue and abandons the quest ***\n\n");
 			return;
 		}
+
+		upLog("{The party eventually goes to sleep/Guard is posted and the party rests/The party dines on disgusting rations and turns in for the night}.\n\n");
 		
 		++day;
 	}

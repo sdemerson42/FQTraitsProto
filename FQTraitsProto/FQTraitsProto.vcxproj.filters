@@ -54,6 +54,9 @@
     <ClCompile Include="Incident.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Traits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">

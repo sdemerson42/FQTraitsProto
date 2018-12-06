@@ -227,11 +227,15 @@ public:
 
 					for (auto hp2 : party->getRoster())
 					{
-						if (hp2 != hp && (hp2->hasTrait("Goody Two Shoes") || hp->hasTrait("Pious")) && rand() % 2 == 0)
+						if (hp2 != hp && !hp2->hasTrait("Kleptomaniac"))
 						{
-							upLog(hp2->getName() + " catches " + hp->getName() + " in the act and is pretty unhappy...\n");
-							r.push_back(std::make_unique<IncidentTheft>(hp, hp2));
-							break;
+							// Roll against thief's Rogue skill
+							if (rand() % Hero::AttMax + 1 > hp->getAttrib(HeroAttrib::Rogue))
+							{
+								upLog(hp2->getName() + " catches " + hp->getName() + " in the act and is pretty unhappy...\n");
+								r.push_back(std::make_unique<IncidentTheft>(hp, hp2));
+								break;
+							}
 						}
 					}
 				}
