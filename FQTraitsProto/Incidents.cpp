@@ -63,6 +63,26 @@ void IncidentTheft::resolve(Party *party, std::vector<std::unique_ptr<IncidentBa
 	{
 		// Drama!
 		upLog(oName + " confronts " + tName + " about a theft and {tempers flare/hurtful things are said/drama ensues}.\n");
+
+		// Chance for diplomat to defuse...
+
+		for (auto hp : party->getActiveRoster())
+		{
+			if (hp->hasTrait("Diplomatic") && hp != m_observer && hp != m_thief)
+			{
+				upLog(hp->getName() + " attempts to {intervene/calm everyone down/defuse the situation} ");
+				if (rand() % 2 == 0)
+				{
+					upLog("and is successful.\n");
+					return;
+				}
+				else
+				{
+					upLog(", but is {unsuccessful/pushed aside/invited to butt out}...\n");
+				}
+			}
+		}
+
 		m_observer->modReputation(tName, rand() % 3 - 5);
 		m_thief->modReputation(oName, rand() % 3 - 5);
 		
@@ -76,6 +96,26 @@ void IncidentTheft::resolve(Party *party, std::vector<std::unique_ptr<IncidentBa
 	{
 		// Violence!
 		upLog(oName + " is {furious/enraged/apoplectic} about a theft and attacks " + tName + "!\n");
+
+		// Chance for diplomat to defuse...
+
+		for (auto hp : party->getActiveRoster())
+		{
+			if (hp->hasTrait("Diplomatic") && hp != m_observer && hp != m_thief)
+			{
+				upLog(hp->getName() + " attempts to {intervene/calm everyone down/defuse the situation} ");
+				if (rand() % 4 == 0)
+				{
+					upLog("and is successful.\n");
+					return;
+				}
+				else
+				{
+					upLog(", but is {unsuccessful/pushed aside/invited to butt out}...\n");
+				}
+			}
+		}
+
 		int oScore = rand() % Hero::AttMax + 1 + m_observer->getBestCoreAttribValue();
 		int tScore = rand() % Hero::AttMax + 1 + m_thief->getBestCoreAttribValue();
 		int diff = abs(oScore - tScore);
@@ -86,35 +126,8 @@ void IncidentTheft::resolve(Party *party, std::vector<std::unique_ptr<IncidentBa
 			att = m_thief;
 			def = m_observer;
 		}
-		std::string attName = att->getName();
-		std::string defName = def->getName();
 
-		if (diff > 4 * Hero::AttMax * 2 / 5)
-		{
-			// Uh oh...
-			upLog(defName + " has been {bludgeoned to death/mortally injured/more or less killed} by " + attName + "...\n");
-			def->setActive(false);
-			incident.push_back(std::make_unique<IncidentPartyInfighting>(att, def, true));
-			// Morale effects wait until Infighting is resolved.
-		}
-		else if (diff > 2 * Hero::AttMax * 2 / 3)
-		{
-			// A vicious wound
-			upLog(attName + " {seriously/gravely/horribly} {wounds/maims/wallops/injures} " + defName + "!\n");
-			incident.push_back(std::make_unique<IncidentWounded>(def, true));
-			incident.push_back(std::make_unique<IncidentPartyInfighting>(att, def, true));
-			// Morale effects wait until Infighting is resolved.
-		}
-		else
-		{
-			// A light wound
-			upLog(attName + " gives " + defName + " a {minor thrashing/thump on the head/boot to the groin!\nThe party laughs it off, but the combatants are {not feeling chummy/not speaking to one another/not on great terms at the moment}.\n");
-			m_observer->modReputation(tName, rand() % 3 - 5);
-			m_thief->modReputation(oName, rand() % 3 - 5);
-			incident.push_back(std::make_unique<IncidentWounded>(def, false));
-		}
-
-
+		incident.push_back(std::make_unique<IncidentPartyInfighting>(att, def));
 	}
 }
 
@@ -148,12 +161,72 @@ void IncidentWounded::resolve(Party *party, std::vector<std::unique_ptr<Incident
 	
 }
 
-void IncidentFlee::resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &)
+void IncidentFlee::resolve(Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident)
 {
-	
+	for (auto hp : party->getActiveRoster())
+	{
+		if (hp != m_hero && !hp->hasTrait("Cowardly"))
+		{
+			if (hp->hasTrait("Hotheaded"))
+			{
+				upLog(hp->getName() + " is {disgusted by/appalled at/nauseated by} " + m_hero->getName() + "'s cowardice and thinks less of " + m_hero->gp("2") + ".\n");
+				hp->modReputation(m_hero->getName(), -2);
+			}
+			if (hp->hasTrait("Bossy"))
+			{
+				upLog(hp->getName() + " is {angry about/furious about/unhappy with} " + m_hero->getName() + "'s failure to follow orders and thinks less of " + m_hero->gp("2") + ".\n");
+				hp->modReputation(m_hero->getName(), -2);
+				
+				// Possible confrontation...
+
+				if (hp->getReputation(m_hero->getName()) < Hero::AttMax * 4 / 5)
+				{
+					// Random disciplinary action ensues...
+
+					int roll = rand() % 2;
+					// Dressing down...
+					upLog(hp->getName() + " {starts screaming at/begins to bawl out} " + m_hero->getName() + "!\n");
+					if (roll == 0)
+					{
+						// ...and violence
+						upLog("The situation escalates into violence!\n");
+						incident.push_back(std::make_unique<IncidentPartyInfighting>(hp, m_hero));
+					}
+				}
+			}
+		}
+	}
 }
 
-void IncidentPartyInfighting::resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &)
+void IncidentPartyInfighting::resolve(Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident)
 {
+	auto att = m_att;
+	auto def = m_def;
+	int oScore = rand() % Hero::AttMax + 1 + m_att->getBestCoreAttribValue();
+	int tScore = rand() % Hero::AttMax + 1 + m_def->getBestCoreAttribValue();
+	int diff = abs(oScore - tScore);
 
+	std::string attName = att->getName();
+	std::string defName = def->getName();
+
+	if (diff > 4 * Hero::AttMax * 2 / 5)
+	{
+		// Uh oh...
+		upLog(defName + " has been {bludgeoned to death/mortally injured/more or less killed} by " + attName + "...\n");
+		def->setActive(false);
+	}
+	else if (diff > 2 * Hero::AttMax * 2 / 3)
+	{
+		// A vicious wound
+		upLog(attName + " {seriously/gravely/horribly} {wounds/maims/wallops/injures} " + defName + "!\n");
+		def->modReputation(attName, rand() % 3 - 5);
+		incident.push_back(std::make_unique<IncidentWounded>(def, true));
+	}
+	else
+	{
+		// A light wound
+		upLog(attName + " gives " + defName + " a {minor thrashing/thump on the head/boot to the groin}!\nThe party {laughs it off/eventually calms down}, but the combatants are {not feeling chummy/not speaking to one another/not on great terms at the moment}.\n");
+		def->modReputation(attName, rand() % 3 - 3);
+		incident.push_back(std::make_unique<IncidentWounded>(def, false));
+	}
 }

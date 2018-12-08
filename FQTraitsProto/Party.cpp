@@ -23,9 +23,8 @@ void Party::initialize(Hero *h1, Hero *h2, Hero *h3, Hero *h4, unsigned int supp
 				int alMod = abs((int)((int)oh->getAttrib(HeroAttrib::Alignment) - (int)h->getAttrib(HeroAttrib::Alignment)));
 				alMod = (2 - (alMod / 4));
 
-				h->modReputation(oh->getName(), affMod);
-				h->modReputation(oh->getName(), alMod);
-
+				h->modReputation(oh->getName(), affMod, true);
+				h->modReputation(oh->getName(), alMod, true);
 			}
 		}
 	}

@@ -117,8 +117,8 @@ void SimState::createTraits()
 	m_trait.push_back(std::make_unique<TraitKlepto>());
 	m_trait.push_back(std::make_unique<TraitVengeful>());
 
-	m_trait.push_back(std::make_unique<TraitEgotistical>());
-	m_trait.push_back(std::make_unique<TraitSkeptical>());
+	//m_trait.push_back(std::make_unique<TraitEgotistical>());
+	//m_trait.push_back(std::make_unique<TraitSkeptical>());
 	m_trait.push_back(std::make_unique<TraitBossy>());
 	m_trait.push_back(std::make_unique<TraitBloodthirsty>());
 	m_trait.push_back(std::make_unique<TraitPious>());
@@ -161,12 +161,14 @@ void SimState::runSim(int level, int size, HeroAttrib primaryAttrib, HeroAttrib 
 
 		for (auto hp : m_party.getActiveRoster())
 			for (auto tp : hp->getTraits())
-				tp->doIncidentPhase(&m_party, incidents);
+				tp->doIncidentPhase(hp, &m_party, incidents);
 
 		// Resolve Incidents...
 
-		for (auto &upi : incidents)		
-			upi->resolve(&m_party, incidents);
+		for (int i = 0; i < incidents.size(); ++i)
+		{
+			incidents[i]->resolve(&m_party, incidents);
+		}
 		
 		// Failure checks...
 
@@ -196,6 +198,7 @@ void SimState::runSim(int level, int size, HeroAttrib primaryAttrib, HeroAttrib 
 void SimState::execute()
 {
 	IncidentBase::setLogger(m_logger.get());
+	TraitBase::setLogger(m_logger.get());
 	createTraits();
 	createHeroRoster(4);
 	createParty();

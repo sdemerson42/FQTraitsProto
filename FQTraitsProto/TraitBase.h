@@ -9,6 +9,7 @@ class EncounterBase;
 class Party;
 class IncidentBase;
 class Hero;
+class ILogger;
 
 class TraitBase
 {
@@ -33,11 +34,15 @@ public:
 			return true;
 		return false;
 	}
-	virtual void doIncidentPhase(Party *, std::vector<std::unique_ptr<IncidentBase>> &) = 0;
+	virtual void doIncidentPhase(Hero *owner, Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident) = 0;
 	virtual void initialize(Hero *)
 	{
 	}
+	static void setLogger(ILogger *il);
+protected:
+	void upLog(const std::string &);
 private:
 	std::string m_name;
 	std::vector<TraitBase *> m_incompatible;
+	static ILogger *m_logger;
 };

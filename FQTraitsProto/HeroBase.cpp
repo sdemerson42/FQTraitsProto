@@ -136,11 +136,11 @@ void Hero::setReputation(const std::string &name, unsigned int val)
 	if (*p > AttMax) *p = AttMax;
 }
 
-void Hero::modReputation(const std::string &name, int val)
+void Hero::modReputation(const std::string &name, int val, bool init)
 {
 	// Exceptions
 
-	if (hasTrait("Vengeful"))
+	if (hasTrait("Vengeful") && !init)
 	{
 		auto rep = getReputation(name);
 		if (rep == 0) return;

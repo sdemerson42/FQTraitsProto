@@ -17,7 +17,7 @@ public:
 	void modAttrib(HeroAttrib, int);
 	unsigned int getAttrib(HeroAttrib) const;
 	void setReputation(const std::string &, unsigned int);
-	void modReputation(const std::string &, int);
+	void modReputation(const std::string &, int, bool init = false);
 	unsigned int getReputation(const std::string &) const;
 	void setName(const std::string &);
 	const std::string &getName() const;

@@ -42,12 +42,11 @@ private:
 class IncidentPartyInfighting : public IncidentBase
 {
 public:
-	IncidentPartyInfighting(Hero *att, Hero *wound, bool fatal) :
-		m_attacker{ att }, m_wounded{ wound }, m_fatal{ fatal }
+	IncidentPartyInfighting(Hero *att, Hero *def) :
+		m_att{ att }, m_def{ def }
 	{}
 	void resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &) override;
 private:
-	Hero *m_attacker;
-	Hero *m_wounded;
-	bool m_fatal;
+	Hero *m_att;
+	Hero *m_def;
 };
