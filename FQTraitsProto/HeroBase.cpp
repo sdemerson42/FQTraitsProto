@@ -206,6 +206,17 @@ void Hero::initialize(const std::string &name, char gender, const Profession &pr
 	m_morale = (int)(.5f * (float)AttMax);
 	m_lev = 1;
 	m_active = true;
+
+	// Trait-based bonuses
+
+	if (hasTrait("Kleptomaniac"))
+	{
+		modAttrib(HeroAttrib::Rogue, rand() % 3 + 3);
+	}
+	if (hasTrait("Bossy"))
+	{
+		modAttrib(HeroAttrib::Affability, rand() % 3 + 3);
+	}
 }
 
 HeroAttrib Hero::getBestCoreAttrib() const

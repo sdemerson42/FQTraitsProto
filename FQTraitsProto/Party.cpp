@@ -107,3 +107,11 @@ void Party::activateParty()
 	for (auto hp : m_roster)
 		hp->setActive(true);
 }
+
+void Party::modAttrib(HeroAttrib attrib, int val)
+{
+	for (auto hp : getActiveRoster())
+	{
+		hp->modAttrib(attrib, val);
+	}
+}

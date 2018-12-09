@@ -87,9 +87,7 @@ public:
 	TraitBossy() :
 		TraitBase{ "Bossy" }
 	{}
-	void doIncidentPhase(Hero *owner, Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident) override
-	{
-	}
+	void doIncidentPhase(Hero *owner, Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident) override;
 };
 
 class TraitBloodthirsty : public TraitBase
@@ -98,9 +96,7 @@ public:
 	TraitBloodthirsty() :
 		TraitBase{ "Bloodthirsty" }
 	{}
-	void doIncidentPhase(Hero *owner, Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident) override
-	{
-	}
+	void doIncidentPhase(Hero *owner, Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident) override;
 };
 
 class TraitPious : public TraitBase
@@ -109,9 +105,7 @@ public:
 	TraitPious() :
 		TraitBase{ "Pious" }
 	{}
-	void doIncidentPhase(Hero *owner, Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident) override
-	{
-	}
+	void doIncidentPhase(Hero *owner, Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident) override;
 };
 
 class TraitHaunted : public TraitBase
@@ -120,9 +114,7 @@ public:
 	TraitHaunted() :
 		TraitBase{ "Haunted" }
 	{}
-	void doIncidentPhase(Hero *owner, Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident) override
-	{
-	}
+	void doIncidentPhase(Hero *owner, Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident) override;
 };
 
 class TraitDiplomatic : public TraitBase
@@ -131,8 +123,6 @@ public:
 	TraitDiplomatic() :
 		TraitBase{ "Diplomatic" }
 	{}
-	void doIncidentPhase(Hero *owner, Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident) override
-	{
-	}
+	void doIncidentPhase(Hero *owner, Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident) override;
 };
 

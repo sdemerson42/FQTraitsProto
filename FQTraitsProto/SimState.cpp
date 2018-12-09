@@ -64,13 +64,15 @@ void SimState::createHeroRoster(int total)
 	for (int i = 0; i < total; ++i)
 	{
 		Hero h;
-		int x = rand() % m_heroName.size();
-		int y = rand() % m_profession.size();
-		h.initialize(m_heroName[x].name, m_heroName[x].gender, m_profession[y]);
-		m_heroName.erase(begin(m_heroName) + x);
 
 		int z = rand() % m_trait.size();
 		h.addTrait(m_trait[z].get());
+
+		int x = rand() % m_heroName.size();
+		int y = rand() % m_profession.size();
+
+		h.initialize(m_heroName[x].name, m_heroName[x].gender, m_profession[y]);
+		m_heroName.erase(begin(m_heroName) + x);
 
 		for (auto tp : h.getTraits())
 		{
@@ -172,9 +174,9 @@ void SimState::runSim(int level, int size, HeroAttrib primaryAttrib, HeroAttrib 
 		
 		// Failure checks...
 
-		if (m_party.getActiveRoster().size() == 0)
+		if (m_party.getActiveRoster().size() < 3)
 		{
-			upLog("\n\n*** The party has been destroyed ***\n\n");
+			upLog("\n\n*** The party's number is too low to continue ***\n\n");
 			return;
 		}
 

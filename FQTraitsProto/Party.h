@@ -16,6 +16,7 @@ public:
 	int getMorale() const;
 	unsigned int getBestAttribTotal() const;
 	void activateParty();
+	void modAttrib(HeroAttrib attrib, int val);
 	void addLoot(unsigned int val)
 	{
 		m_loot += val;
