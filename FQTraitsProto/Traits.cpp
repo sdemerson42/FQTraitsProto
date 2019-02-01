@@ -33,18 +33,21 @@ void TraitBossy::doIncidentPhase(Hero *owner, Party *party, std::vector<std::uni
 
 		for (auto hp : party->getActiveRoster())
 		{
-			// 50 % chance + reputation check...
-			if (hp->getReputation(owner->getName()) + rand() % 5 + 1 > Hero::AttMax / 2 && rand() % 2 == 0)
+			if (hp != owner)
 			{
-				// Morale improved
-				upLog(hp->getName() + " {feel inspired/appreciates the effort/likes orderliness/tolerates this behavior} and " + hp->gp("p") + " morale improves.\n");
-				hp->modAttrib(HeroAttrib::Morale, 2);
-			}
-			else if ((int)hp->getReputation(owner->getName()) - (rand() % 5 + 1) <= Hero::AttMax / 5)
-			{
-				// Annoyed
-				upLog(hp->getName() + " {is irritated/is not in the mood/doesn't take orders well} and loses morale.\n");
-				hp->modAttrib(HeroAttrib::Morale, -1);
+				// 50 % chance + reputation check...
+				if (hp->getReputation(owner->getName()) + rand() % 5 + 1 > Hero::AttMax / 2 && rand() % 2 == 0)
+				{
+					// Morale improved
+					upLog(hp->getName() + " {feel inspired/appreciates the effort/likes orderliness/tolerates this behavior} and " + hp->gp("p") + " morale improves.\n");
+					hp->modAttrib(HeroAttrib::Morale, 2);
+				}
+				else if ((int)hp->getReputation(owner->getName()) - (rand() % 5 + 1) <= Hero::AttMax / 5)
+				{
+					// Annoyed
+					upLog(hp->getName() + " {is irritated/is not in the mood/doesn't take orders well} and loses morale.\n");
+					hp->modAttrib(HeroAttrib::Morale, -1);
+				}
 			}
 		}
 	}
@@ -75,7 +78,7 @@ void TraitBloodthirsty::doIncidentPhase(Hero *owner, Party *party, std::vector<s
 		else
 		{
 			// Uh-oh...
-			upLog(owner->gp("1c") + " returns {pursued by dungeon wolves/, chased by giant ants/with a horde of imps in hot pursuit}!\n");
+			upLog(owner->gp("1c") + " returns {pursued by dungeon wolves/chased by giant ants/with a horde of imps in hot pursuit}!\n");
 			if (rand() % 2 == 0)
 			{
 				// Reputaton damage
@@ -119,18 +122,21 @@ void TraitPious::doIncidentPhase(Hero *owner, Party *party, std::vector<std::uni
 
 		for (auto hp : party->getActiveRoster())
 		{
-			// 50 % chance + Divinity check OR automatic if Goody Two Shoes
-			if ((hp->getAttrib(HeroAttrib::Divine) + rand() % 10 + 1 > Hero::AttMax / 2 && rand() % 2 == 0) || hp->hasTrait("Goody Two Shoes"))
+			if (hp != owner)
 			{
-				// Morale improved
-				upLog(hp->getName() + " {feel inspired/appreciates the effort/is feeling devout this evening/tolerates this behavior} and " + hp->gp("p") + " morale improves.\n");
-				hp->modAttrib(HeroAttrib::Morale, 2);
-			}
-			else if (rand() % 2 == 0)
-			{
-				// Annoyed
-				upLog(hp->getName() + " {is irritated/becomes sullen/curses the gods} and loses morale.\n");
-				hp->modAttrib(HeroAttrib::Morale, -1);
+				// 50 % chance + Divinity check OR automatic if Goody Two Shoes
+				if ((hp->getAttrib(HeroAttrib::Divine) + rand() % 10 + 1 > Hero::AttMax / 2 && rand() % 2 == 0) || hp->hasTrait("Goody Two Shoes"))
+				{
+					// Morale improved
+					upLog(hp->getName() + " {feel inspired/appreciates the effort/is feeling devout this evening/tolerates this behavior} and " + hp->gp("p") + " morale improves.\n");
+					hp->modAttrib(HeroAttrib::Morale, 2);
+				}
+				else if (rand() % 2 == 0)
+				{
+					// Annoyed
+					upLog(hp->getName() + " {is irritated/becomes sullen/curses the gods} and loses morale.\n");
+					hp->modAttrib(HeroAttrib::Morale, -1);
+				}
 			}
 		}
 	}
@@ -149,7 +155,7 @@ void TraitHaunted::doIncidentPhase(Hero *owner, Party *party, std::vector<std::u
 
 		for (auto ep : party->getActiveRoster())
 		{
-			if (rand() % Hero::AttMax + 1 < ep->getAttrib(HeroAttrib::Divine))
+			if (ep->getAttrib(HeroAttrib::Divine) > 10 && rand() % Hero::AttMax + 1 < ep->getAttrib(HeroAttrib::Divine))
 			{
 				upLog(ep->getName() + " {banishes/exorcises/chastises/glares at} the apparition and it promptly vanishes!\n");
 				ep->modAttrib(HeroAttrib::Morale, 1);
@@ -207,7 +213,7 @@ void TraitDiplomatic::doIncidentPhase(Hero *owner, Party *party, std::vector<std
 						else
 						{
 							upLog(hp->getName() + " {is persuaded/gives in/pretends to care but somehow winds up actually caring}.\n");
-							upLog("Relations between " + hp->getName() + " and " + cp->getName() + " improve!");
+							upLog("Relations between " + hp->getName() + " and " + cp->getName() + " improve!\n");
 							hp->modReputation(cp->getName(), rand() % 4 + 1);
 							cp->modReputation(hp->getName(), rand() % 4 + 1);
 							return;

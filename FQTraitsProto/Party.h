@@ -13,6 +13,7 @@ public:
 	std::vector<Hero *> &getRoster();
 	std::vector<Hero *> getActiveRoster();
 	Hero *getActiveHeroWithTrait(const std::string &);
+	Hero *getHeroWithBestAttrib(HeroAttrib attrib);
 	int getMorale() const;
 	unsigned int getBestAttribTotal() const;
 	void activateParty();

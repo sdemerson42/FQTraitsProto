@@ -4,6 +4,10 @@
 
 void IncidentTheft::resolve(Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident)
 {
+	// Death check
+	if (!m_observer->getActive() || !m_thief->getActive())
+		return;
+
 	// Vengeful
 
 	if (m_observer->hasTrait("Vengeful"))
@@ -131,8 +135,27 @@ void IncidentTheft::resolve(Party *party, std::vector<std::unique_ptr<IncidentBa
 	}
 }
 
-void IncidentWounded::resolve(Party *party, std::vector<std::unique_ptr<IncidentBase>> &)
+void IncidentWounded::resolve(Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident)
 {
+	// Death check
+	if (!m_wounded->getActive())
+		return;
+
+	// Serious wounds may lead to death...
+
+	if (m_serious && m_wounded->getAttrib(HeroAttrib::Morale) <= Hero::AttMax / 3)
+	{
+		// Low morale and serious wound give 50% chance of death
+		if (rand() % 2 == 0)
+		{
+			upLog(m_wounded->getName() + " dies of " + m_wounded->gp("p") + " injuries...\n");
+			m_wounded->setActive(false);
+			incident.push_back(std::make_unique<IncidentDeath>(m_wounded));
+			return;
+		}
+	}
+
+
 	upLog(m_wounded->getName() + " {has a bit of a cry about/whines about/keeps poking at} " + (m_wounded->getGender() == 'M' ? "his " : "her ")
 		+ "injuries and loses morale...\n");
 	m_wounded->modAttrib(HeroAttrib::Morale, rand() % 3 - 3);
@@ -163,6 +186,10 @@ void IncidentWounded::resolve(Party *party, std::vector<std::unique_ptr<Incident
 
 void IncidentFlee::resolve(Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident)
 {
+	// Death check
+	if (!m_hero->getActive())
+		return;
+
 	for (auto hp : party->getActiveRoster())
 	{
 		if (hp != m_hero && !hp->hasTrait("Cowardly"))
@@ -200,6 +227,10 @@ void IncidentFlee::resolve(Party *party, std::vector<std::unique_ptr<IncidentBas
 
 void IncidentPartyInfighting::resolve(Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident)
 {
+	// Death check
+	if (!m_att->getActive() || !m_def->getActive())
+		return;
+
 	auto att = m_att;
 	auto def = m_def;
 	int oScore = rand() % Hero::AttMax + 1 + m_att->getBestCoreAttribValue();
@@ -214,6 +245,7 @@ void IncidentPartyInfighting::resolve(Party *party, std::vector<std::unique_ptr<
 		// Uh oh...
 		upLog(defName + " has been {bludgeoned to death/mortally injured/more or less killed} by " + attName + "...\n");
 		def->setActive(false);
+		incident.push_back(std::make_unique<IncidentDeath>(m_def));
 	}
 	else if (diff > 2 * Hero::AttMax * 2 / 3)
 	{
@@ -229,4 +261,27 @@ void IncidentPartyInfighting::resolve(Party *party, std::vector<std::unique_ptr<
 		def->modReputation(attName, rand() % 3 - 3);
 		incident.push_back(std::make_unique<IncidentWounded>(def, false));
 	}
+}
+
+void IncidentDeath::resolve(Party *party, std::vector<std::unique_ptr<IncidentBase>> &)
+{
+	// Burial and possible loss of morale
+
+	upLog("The party buries " + m_dead->getName() + " {in a shallow grave/under some discarded kobold shirts/with as much dignity as possible}.\n");
+
+	for (auto hp : party->getActiveRoster())
+	{
+		if (hp->getReputation(m_dead->getName()) > Hero::AttMax * 3 / 4)
+		{
+			upLog(hp->getName() + " {feels sad/is quite upset/feels somewhat responsible/is bummed out} and loses morale.\n");
+			hp->modAttrib(HeroAttrib::Morale, rand() % 3 - 3);
+		}
+	}
+}
+
+void IncidentPoison::resolve(Party *party, std::vector<std::unique_ptr<IncidentBase>> &incident)
+{
+	upLog(m_poisoned->getName() + " begins feeling the effects of the poison.\n");
+	upLog(m_poisoned->gp("1c") + " spends a portion of the evening {vomiting profusely/howling in acute pain/having strange hallucinations} and becomes less skillful.\n");
+	m_poisoned->modAttrib(m_poisoned->getBestCoreAttrib(), -1);
 }

@@ -186,11 +186,11 @@ public:
 					}
 				}
 			}
+			upLog("The party is {demoralized/humiliated/saddened} by its {pitiful/ignominious/utter} defeat.\n");
 			for (auto hp : party->getActiveRoster())
 			{
 				int mLoss = rand() % 3 - 5;
 				hp->modAttrib(HeroAttrib::Morale, mLoss);
-				upLog(hp->getName() + " loses " + std::to_string(abs(mLoss)) + " morale.\n");
 			}
 		}
 
@@ -249,4 +249,131 @@ public:
 	}
 private:
 	std::string m_namePlural;
+};
+
+class GenericTrapEncounter : public EncounterBase
+{
+public:
+	GenericTrapEncounter(HeroAttrib attrib, unsigned int level, ILogger *logger) :
+		EncounterBase{ attrib, level, logger }
+	{}
+	std::vector<std::unique_ptr<IncidentBase>> resolve(Party *party) override
+	{
+
+		std::vector<std::unique_ptr<IncidentBase>> r;
+
+		// Determine trap type for flavor...
+
+		int type = rand() % 2;
+
+		// Chance to detect trap...
+
+		auto rh = party->getHeroWithBestAttrib(HeroAttrib::Rogue);
+
+		if (rand() % Hero::AttMax + 1 < rh->getAttrib(HeroAttrib::Rogue))
+		{
+			// Trap detected
+
+			upLog("While {strolling down/walking along/plodding through} a {filthy cooridoor/narrow passage/dark tunnel}, " +
+				rh->getName() + " detects a {dastardly/dangerous/devious} trap!\n");
+
+			// Vengeance?
+
+			auto p = party->getActiveHeroWithTrait("Vengeful");
+			if (p != nullptr)
+			{
+				for (auto vp : party->getActiveRoster())
+				{
+					if (vp != p && p->getReputation(vp->getName()) == 0)
+					{
+						// Yes!
+						upLog(p->getName() + " decides to enact {horrible/gruesome/terrifying} vengeance upon "
+							+ vp->getName() + " by pushing " + vp->gp("2") + " into the trap's {pointy spikes/sinister blades/deadly protrusions}!\n");
+						p->setReputation(vp->getName(), Hero::AttMax / 2);
+
+						if (rand() % 2 == 0)
+						{
+							upLog(vp->getName() + " is {lightly wounded/somewhat mangled/mildly bruised} by the trap.\n");
+							r.push_back(std::make_unique<IncidentWounded>(vp));
+							return r;
+						}
+						else
+						{
+							upLog(vp->getName() + " is {badly hurt/seriously maimed/horribly wounded} by the trap.\n");
+							r.push_back(std::make_unique<IncidentWounded>(vp, true));
+							return r;
+						}
+					}
+				}
+			}
+
+			upLog("The party evades the trap with ease and continues the journey.\n");
+			return r;
+		}
+		else
+		{
+			// Detection failed
+
+			upLog("While {strolling down/walking along/plodding through} a {filthy cooridoor/narrow passage/dark tunnel}, the party triggers a {dastardly/dangerous/devious} trap!\n");
+
+			// Types?
+
+			if (type == 0)
+			{
+				// Pit trap
+				// Who falls in?
+
+				auto p = party->getActiveHeroWithTrait("Bossy");
+				if (p != nullptr)
+				{
+					upLog(p->getName() + ", who is leading the way as usual, {bumbles/plunges/somersaults} directly into a hidden pit!\n");
+				}
+				else
+				{
+					p = party->getActiveRoster()[rand() % party->getActiveRoster().size()];
+					upLog(p->getName() + " {bumbles/plunges/somersaults} directly into a hidden pit!\n");
+
+				}
+				if (rand() % 2 == 0)
+				{
+					upLog(p->getName() + " is {lightly wounded/somewhat mangled/mildly bruised} by the fall.\n");
+					r.push_back(std::make_unique<IncidentWounded>(p));
+				}
+				else
+				{
+					upLog(p->getName() + " is {badly hurt/seriously maimed/horribly wounded} by the trap.\n");
+					r.push_back(std::make_unique<IncidentWounded>(p, true));
+				}
+				upLog("The party manages to get " + p->getName() + " out of the pit and continues on its way.\n");
+				return r;
+			}
+			else if (type == 1)
+			{
+				// Poison Dart
+				// Who gets hit?
+
+				auto p = party->getActiveRoster()[rand() % party->getActiveRoster().size()];
+				upLog(p->getName() + " is hit with a poisoned dart!\n");
+
+				if (rand() % 2 == 0)
+				{
+					upLog("Fortunately, {the injury is minor/it's just a scratch}.\n");
+					r.push_back(std::make_unique<IncidentWounded>(p));
+				}
+				else
+				{
+					upLog("Alas, the dart was poisoned! " + p->getName() + " {is looking a bit green/doesn't feel very well/is in for a rough evening}.\n");
+					r.push_back(std::make_unique<IncidentPoison>(p));
+				}
+				upLog("The party continues on its way.\n");
+				return r;
+			}
+			else if (type == 2)
+			{
+
+			}
+		}
+
+
+	}
 };

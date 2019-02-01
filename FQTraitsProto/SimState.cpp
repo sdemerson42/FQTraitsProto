@@ -109,6 +109,11 @@ void SimState::createEncounters()
 	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 7, m_logger.get(), "Zombies"));
 	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 8, m_logger.get(), "Trolls"));
 	m_encounter.push_back(std::make_unique<GenericCombatEncounter>(HeroAttrib::Physical, 9, m_logger.get(), "Real Bastards"));
+
+	m_encounter.push_back(std::make_unique<GenericTrapEncounter>(HeroAttrib::Rogue, 6, m_logger.get()));
+	m_encounter.push_back(std::make_unique<GenericTrapEncounter>(HeroAttrib::Rogue, 6, m_logger.get()));
+	m_encounter.push_back(std::make_unique<GenericTrapEncounter>(HeroAttrib::Rogue, 6, m_logger.get()));
+	m_encounter.push_back(std::make_unique<GenericTrapEncounter>(HeroAttrib::Rogue, 6, m_logger.get()));
 }
 
 void SimState::createTraits()
@@ -155,7 +160,7 @@ void SimState::runSim(int level, int size, HeroAttrib primaryAttrib, HeroAttrib 
 
 		auto incidents = m_encounter[incIndex]->resolve(&m_party);
 		// (Remove Incident card from deck)
-		m_encounter.erase(std::begin(m_encounter) + incIndex);
+		//m_encounter.erase(std::begin(m_encounter) + incIndex);
 
 		// Campfire Traits behavior...
 
@@ -205,5 +210,5 @@ void SimState::execute()
 	createHeroRoster(4);
 	createParty();
 	createEncounters();
-	runSim(5, 5, HeroAttrib::Physical, HeroAttrib::Magical);
+	runSim(5, 10, HeroAttrib::Physical, HeroAttrib::Magical);
 }

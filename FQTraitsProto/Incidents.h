@@ -50,3 +50,26 @@ private:
 	Hero *m_att;
 	Hero *m_def;
 };
+
+class IncidentDeath : public IncidentBase
+{
+public:
+	IncidentDeath(Hero *dead) :
+		m_dead{ dead }
+	{}
+	void resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &) override;
+private:
+	Hero *m_dead;
+};
+
+class IncidentPoison : public IncidentBase
+{
+public:
+	IncidentPoison(Hero *poisoned) :
+		m_poisoned{ poisoned }
+	{}
+	void resolve(Party *, std::vector<std::unique_ptr<IncidentBase>> &) override;
+private:
+	Hero *m_poisoned;
+};
+

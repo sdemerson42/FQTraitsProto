@@ -84,6 +84,21 @@ Hero *Party::getActiveHeroWithTrait(const std::string &trait)
 	return nullptr;
 }
 
+Hero *Party::getHeroWithBestAttrib(HeroAttrib attrib)
+{
+	int score = -1;
+	Hero *r = nullptr;
+	for (auto hp : m_roster)
+	{
+		if (hp->getActive() && (int)hp->getAttrib(attrib) > score)
+		{
+			score = (int)hp->getAttrib(attrib);
+			r = hp;
+		}
+	}
+	return r;
+}
+
 unsigned int Party::getPartyAttrib(HeroAttrib ha) const
 {
 	unsigned int r = 0;
